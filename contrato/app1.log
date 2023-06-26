@@ -1,0 +1,15 @@
+nohup: ignorando entrada
+ * Serving Flask app 'app4'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://192.168.1.67:5005
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 186-895-273
+192.168.2.148 - - [26/Jun/2023 10:36:09] "[32mGET / HTTP/1.1[0m" 302 -
+192.168.2.148 - - [26/Jun/2023 10:36:09] "GET /login HTTP/1.1" 200 -
+192.168.2.148 - - [26/Jun/2023 10:36:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+192.168.2.148 - - [26/Jun/2023 10:36:12] "[32mPOST /login HTTP/1.1[0m" 302 -
+192.168.2.148 - - [26/Jun/2023 10:36:12] "GET /enviar_contrato HTTP/1.1" 200 -
+192.168.2.148 - - [26/Jun/2023 10:37:02] "GET /listar_contratos HTTP/1.1" 200 -
