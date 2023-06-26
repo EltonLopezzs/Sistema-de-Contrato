@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f1f1f1;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 200px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #4e86e4;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3469c7;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #e8e8e8;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .messages li {
+            list-style-type: none;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Contratos</h1>
+    <div style="text-align: center;">
+        <img src="https://www.udop.com.br/u_img/associadas/log_alcoolvale.png" alt="Alcoolvale Logo" class="logo">
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('login') }}" style="text-align: center;">
+        <label for="usuario">Usuário:</label>
+        <input type="text" id="usuario" name="usuario" required><br>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required><br>
+        <input type="submit" value="Entrar">
+    </form>
+</body>
+</html>

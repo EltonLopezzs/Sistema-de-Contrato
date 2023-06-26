@@ -1,0 +1,48 @@
+C:\Portaria\Portaria\.venv\Scripts\activate.bat
+
+
+
+source .venv/bin/activate
+
+
+
+
+nohup python app.py > app.log 2>&1 &
+nohup python app1.py > app1.log 2>&1 &
+nohup python app4.py > app1.log 2>&1 &
+nohup python consulta.py > app1.log 2>&1 &
+sqlite_web --host 192.168.1.67 --port 8000 /home/unialco/portaria/portaria.db
+
+ 
+f
+
+
+
+
+derrubar servi�o
+
+
+ps aux | grep "python app.py" | grep -v grep | awk '{print $2}' | xargs kill
+ps aux | grep "python consulta.py" | grep -v grep | awk '{print $2}' | xargs kill
+
+ps aux | grep "python app1.py" | grep -v grep | awk '{print $2}' | xargs kill
+ps aux | grep "python app3.py" | grep -v grep | awk '{print $2}' | xargs kill
+
+
+
+
+
+Sistema de Contrato
+
+
+source .venv/bin/activate
+
+
+
+
+python app4.py
+nohup python app4.py > app.log 2>&1 &
+
+
+ps aux | grep "python app4.py" | grep -v grep | awk '{print $2}' | xargs kill
+

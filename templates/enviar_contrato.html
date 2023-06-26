@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enviar Contrato</title>
+
+    <style>
+    h1 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    input[type="date"],
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+        background-color: #4e86e4;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #3469c7;
+    }
+
+    .messages {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #e8e8e8;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .messages li {
+        list-style-type: none;
+        margin-bottom: 5px;
+    }
+
+    .logo-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .logo-image {
+        max-width: 200px;
+    }
+</style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="https://www.udop.com.br/u_img/associadas/log_alcoolvale.png" alt="Logo" class="logo-image">
+    </div>
+    <h1>Adicionar Contratos</h1>
+    <h1>    <a style="font-size: 20px;" href="http://portaria.unialco.com.br:5005/listar_contratos"><button>Contratos</button></a></h1>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('enviar_contrato') }}" enctype="multipart/form-data">
+        <label for="data_contrato">Data do Contrato:</label>
+        <input type="date" id="data_contrato" name="data_contrato" required><br>
+        <label for="data_vencimento">Data do Vencimento:</label>
+        <input type="date" id="data_vencimento" name="data_vencimento" required><br>
+        <label for="numero">Número do Contrato:</label>
+        <input type="number" id="numero" name="numero" required><br>
+        <label for="pdf">Adicionar PDF:</label>
+        <input type="file" id="pdf" name="pdf" accept=".pdf" required><br>
+        <label for="nome_empresa">NOME DA EMPRESA:</label>
+        <input type="text" id="nome_empresa" name="nome_empresa" required><br>
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" id="cnpj" name="cnpj" pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}" placeholder="00.000.000/0000-00" required><br>
+        <label for="assinado_por">Assinado Por:</label>
+        <input type="text" id="assinado_por" name="assinado_por" required><br>
+        <label for="setor">Setor:</label>
+        <input type="text" id="setor" name="setor" required><br>
+        <label for="quem_adicionou">Quem Adicionou:</label>
+        <input type="text" id="quem_adicionou" name="quem_adicionou" required><br>
+        <input type="submit" value="Enviar">
+    </form>
+  
+</body>
+</html>

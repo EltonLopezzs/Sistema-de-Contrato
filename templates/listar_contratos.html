@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todos Contratos
+        <div class="logo">
+            <img src="https://www.udop.com.br/u_img/associadas/log_alcoolvale.png" alt="Logo">
+        </div>
+    </title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f1f1f1;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        .actions a {
+            color: #4e86e4;
+            text-decoration: none;
+        }
+
+        .search-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .search-button {
+            padding: 5px 10px;
+            background-color: #4e86e4;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #3469c7;
+        }
+
+        .filter-buttons {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .filter-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #4e86e4;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .filter-button:hover {
+            background-color: #3469c7;
+        }
+
+        .logo {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            max-width:150px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Todos Contratos</h1>
+    <div style="text-align: left;">
+        <a href="http://portaria.unialco.com.br:5005/enviar_contrato"><button>Registrar Contratos</button></a>
+    </div>
+    <form class="search-form">
+        <label for="search_nome_empresa">Pesquisar por Nome da Empresa:</label>
+        <input type="text" id="search_nome_empresa" class="search-input">
+        <button type="button" onclick="pesquisarContrato()" class="search-button">Pesquisar</button>
+    </form>
+    <div class="filter-buttons">
+        <button type="button" onclick="filtrarVencidos(true)" class="filter-button">Contratos Vencidos</button>
+        <button type="button" onclick="filtrarVencidos(false)" class="filter-button">Contratos Não Vencidos</button>
+    </div>
+    <table id="tabela_contratos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data do Contrato</th>
+                <th>Data do Vencimento</th>
+                <th>Número do Contrato</th>
+                <th>NOME DA EMPRESA</th>
+                <th>CNPJ</th>
+                <th>Assinado Por</th>
+                <th>Setor</th>
+                <th>Quem Adicionou</th>
+                <th class="actions">Ações</th>
+              <!--<th>enviar</th>-->  
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for contrato in contratos %}
+                <tr>
+                    <td>{{ contrato['id'] }}</td>
+                    <td>{{ contrato['data_contrato'] }}</td>
+                    <td>{{ contrato['data_vencimento'] }}</td>
+                    <td>{{ contrato['numero'] }}</td>
+                    <td>{{ contrato['nome_empresa'] }}</td>
+                    <td>{{ contrato['cnpj'] }}</td>
+                    <td>{{ contrato['assinado_por'] }}</td>
+                    <td>{{ contrato['setor'] }}</td>
+                    <td>{{ contrato['quem_adicionou'] }}</td>
+                    <td class="actions"><a href="{{ url_for('download_pdf', contrato_id=contrato['id']) }}">Baixar PDF</a></td>
+
+                    <!--
+                    <td>
+                        <form action="https://formsubmit.co/elton.lopes@alcoolvale.com.br" method="POST">
+                            <textarea name="NF PORTARIA" placeholder="MENSAGEM"></textarea>                        
+                            <input type="hidden" name="_subject" value="NF Portaria! Favor não responda esse Email">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="id" value="{{ contrato['id'] }}">
+                            <input type="hidden" name="data" value="{{ contrato['data_contrato'] }}">
+                            <input type="hidden" name="horario" value="{{ contrato['data_vencimento'] }}">
+                            <input type="hidden" name="nome_motorista" value="{{ contrato['numero'] }}">
+                            <input type="hidden" name="cpf" value="{{contrato['nome_empresa'] }}">
+                            <input type="hidden" name="placa" value="{{ contrato['cnpj'] }}">
+                            <input type="hidden" name="nota_fiscal" value="{{ contrato['assinado_por'] }}">
+                            <input type="hidden" name="itens" value="{{ contrato['assinado_por'] }}">
+                            <input type="hidden" name="fornecedor" value="{{ contrato['setor'] }}">
+                            <input type="hidden" name="destino" value="{{ contrato['quem_adicionou'] }}">   
+                            <input type="submit" value="Enviar E-mail">
+
+                    </td>
+
+
+               -->
+
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function pesquisarContrato() {
+            var inputNomeEmpresa = document.getElementById('search_nome_empresa');
+            var filtroNomeEmpresa = inputNomeEmpresa.value.toUpperCase();
+
+            var tabelaContratos = document.getElementById('tabela_contratos');
+            var linhas = tabelaContratos.getElementsByTagName('tr');
+
+            for (var i = 0; i < linhas.length; i++) {
+                var colunaNomeEmpresa = linhas[i].getElementsByTagName('td')[4];
+
+                if (colunaNomeEmpresa) {
+                    var textoNomeEmpresa = colunaNomeEmpresa.textContent || colunaNomeEmpresa.innerText;
+
+                    if (textoNomeEmpresa.toUpperCase().indexOf(filtroNomeEmpresa) > -1) {
+                        linhas[i].style.display = '';
+                    } else {
+                        linhas[i].style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        function filtrarVencidos(vencidos) {
+            var tabelaContratos = document.getElementById('tabela_contratos');
+            var linhas = tabelaContratos.getElementsByTagName('tr');
+
+            var dataAtual = new Date();
+
+            for (var i = 0; i < linhas.length; i++) {
+                var colunaDataVencimento = linhas[i].getElementsByTagName('td')[2];
+
+                if (colunaDataVencimento) {
+                    var textoDataVencimento = colunaDataVencimento.textContent || colunaDataVencimento.innerText;
+                    var dataVencimento = new Date(textoDataVencimento);
+
+                    if (vencidos && dataVencimento < dataAtual) {
+                        linhas[i].style.display = '';
+                    } else if (!vencidos && dataVencimento >= dataAtual) {
+                        linhas[i].style.display = '';
+                    } else {
+                        linhas[i].style.display = 'none';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
